@@ -24,8 +24,8 @@ public class RobotLogImpl implements RobotLogService {
     }
 
     @Override
-    public List<RobotLog> findByTimestampAndSoftwareAndMessageAndSeverity(Timestamp timestamp, String software, String message, String severity) {
-    return robotLogRepository.findByTimestampAndSoftwareAndMessageAndSeverity(timestamp, software, message, severity);
+    public List<RobotLog> findByTimestampBetweenAndSoftwareInAndSeverityIn(Timestamp start, Timestamp end, List<String> software, List<String> severity) {
+        return robotLogRepository.findByTimestampBetweenAndSoftwareInAndSeverityIn(start, end, software, severity);
     }
 
     @Override

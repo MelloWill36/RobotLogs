@@ -9,7 +9,7 @@ public interface RobotLogService {
 
     List<RobotLog> buscarTodos();
 
-   List<RobotLog> findByTimestampAndSoftwareAndMessageAndSeverity(Timestamp timestamp, String software, String message, String severity);
+   List<RobotLog> findByTimestampBetweenAndSoftwareInAndSeverityIn(Timestamp start, Timestamp end,  List<String> software, List<String> severity);
 
     RobotLog salvar (RobotLog robotLog);
     void delete (Long id);

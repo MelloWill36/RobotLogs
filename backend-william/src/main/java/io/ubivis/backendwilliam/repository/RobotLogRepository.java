@@ -10,7 +10,8 @@ import java.util.List;
 @Repository
 public interface RobotLogRepository extends JpaRepository<RobotLog, Long> {
 
-    List<RobotLog> findByTimestampAndSoftwareAndMessageAndSeverity(Timestamp timestamp, String software, String message, String severity);
+    List<RobotLog> findByTimestampBetweenAndSoftwareInAndSeverityIn(Timestamp startTimestamp, Timestamp endTimestamp, List<String> software, List<String> severity);
+
 
 }
 
