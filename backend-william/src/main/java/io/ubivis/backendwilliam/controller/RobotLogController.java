@@ -38,7 +38,17 @@ public class RobotLogController {
         Timestamp startTimestamp = Timestamp.valueOf(start);
         Timestamp endTimestamp = Timestamp.valueOf(end);
 
-        List<RobotLog> result = robotLogService.findByTimestampBetweenAndSoftwareInAndSeverityIn(startTimestamp, endTimestamp, software, severity);
+        List<RobotLog> result;
+
+        if (start != null && end!=null && software != null && severity != null) {
+            result = robotLogService.findByTimestampBetweenAndSoftwareInAndSeverityIn(startTimestamp, endTimestamp, software, severity);
+        } else if (start != null && end!=null && software != null && severity == null) {
+            result = robotLogService.findByTimestampBetweenAndSoftwareIn(startTimestamp, endTimestamp, software);
+        } else if (start != null && end!=null && software == null && severity != null) {
+            result = robotLogService.findByTimestampBetweenAndSeverityIn(startTimestamp, endTimestamp, severity);
+        } else {
+            result = robotLogService.findByTimestampBetween(startTimestamp, endTimestamp);
+        }
 
         return ResponseEntity.ok(result);
     }
