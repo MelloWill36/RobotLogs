@@ -12,6 +12,7 @@ public interface RobotLogRepository extends JpaRepository<RobotLog, Long> {
     List<RobotLog> findByTimestampBetweenAndSoftwareInAndSeverityIn(Timestamp start, Timestamp end, List<String> software, List<String> severity);
     List<RobotLog> findByTimestampBetweenAndSoftwareIn(Timestamp start, Timestamp end, List<String> software);
     List<RobotLog> findByTimestampBetweenAndSeverityIn(Timestamp start, Timestamp end, List<String> severity);
+    List<RobotLog> findBySoftwareInAndSeverityIn(List<String> software, List<String> severity);
     List<RobotLog> findByTimestampBetween(Timestamp start, Timestamp end);
 
 }

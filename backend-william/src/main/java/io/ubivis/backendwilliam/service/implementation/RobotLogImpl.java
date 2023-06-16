@@ -28,7 +28,7 @@ public class RobotLogImpl implements RobotLogService {
         return robotLogRepository.findByTimestampBetweenAndSoftwareInAndSeverityIn(start, end, software, severity);
     }
 
-    @Override
+   @Override
     public List<RobotLog> findByTimestampBetweenAndSoftwareIn(Timestamp start, Timestamp end, List<String> software) {
         return robotLogRepository.findByTimestampBetweenAndSoftwareIn(start, end, software);
     }
@@ -37,7 +37,10 @@ public class RobotLogImpl implements RobotLogService {
     public List<RobotLog> findByTimestampBetweenAndSeverityIn(Timestamp start, Timestamp end, List<String> severity) {
         return robotLogRepository.findByTimestampBetweenAndSeverityIn(start, end, severity);
     }
-
+    @Override
+    public List<RobotLog> findBySoftwareInAndSeverityIn(List<String> software, List<String> severity) {
+        return robotLogRepository.findBySoftwareInAndSeverityIn(software, severity);
+    }
     @Override
     public List<RobotLog> findByTimestampBetween(Timestamp start, Timestamp end) {
         return robotLogRepository.findByTimestampBetween(start, end);

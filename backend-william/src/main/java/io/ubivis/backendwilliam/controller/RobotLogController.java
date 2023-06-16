@@ -30,15 +30,15 @@ public class RobotLogController {
 
     @GetMapping(value = "/filtro")
     public ResponseEntity<List<RobotLog>> findByFilter(
-        @RequestParam( "start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
-        @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end,
+        @RequestParam (value = "start", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+        @RequestParam (value = "end", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end,
         @RequestParam (required = false) List<String> software,
         @RequestParam (required = false) List<String> severity)  {
 
         Timestamp startTimestamp = Timestamp.valueOf(start);
         Timestamp endTimestamp = Timestamp.valueOf(end);
 
-        List<RobotLog> result;
+       List<RobotLog> result;
 
         if (start != null && end!=null && software != null && severity != null) {
             result = robotLogService.findByTimestampBetweenAndSoftwareInAndSeverityIn(startTimestamp, endTimestamp, software, severity);
@@ -46,12 +46,14 @@ public class RobotLogController {
             result = robotLogService.findByTimestampBetweenAndSoftwareIn(startTimestamp, endTimestamp, software);
         } else if (start != null && end!=null && software == null && severity != null) {
             result = robotLogService.findByTimestampBetweenAndSeverityIn(startTimestamp, endTimestamp, severity);
-        } else {
+        }  else if (startTimestamp == null && endTimestamp == null && software != null && severity != null) {
+        result = robotLogService.findBySoftwareInAndSeverityIn(software, severity);
+        }  else {
             result = robotLogService.findByTimestampBetween(startTimestamp, endTimestamp);
         }
-
         return ResponseEntity.ok(result);
     }
+
     @PostMapping
     public ResponseEntity <RobotLog> salvar (@RequestBody  RobotLog robotLog) {
        var newLog = robotLogService.salvar(robotLog);
